@@ -4,6 +4,70 @@
   padding: 0px;
 }
 
+
+/*FOR BOTH NAVS (DESKTOP AND DEVICE)-------------------------------*/
+
 nav {
+  display: flex;
+  position: sticky;
+  top: 0;
+  align-items: center;
+  width: 100%;
+  height: 75px;
+  background-color: aqua;
+}
+
+/*FOR DEVICE NAV --------------------------------------------------*/
+
+.nav__desktop-container {
   display: none;
+}
+
+.nav__device-container {
+  width: 100%;
+}
+
+.nav__device-container ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 5% 0 5%;
+  font-size: 3rem;
+}
+
+/*FOR DESKTOP NAV -------------------------------------------------*/
+
+
+.nav__desktop-container {
+  width: 100%;
+}
+
+.nav__desktop-container ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 5% 0 5%;
+  font-size: 1.2rem;
+}
+
+.nav__desktop-container ul li {
+  margin: 0 1% 0 0;
+}
+
+.nav__desktop-container ul li:last-child {
+  margin: 0 0 0 0;
+}
+
+/*MEDIA QUERY -----------------------------------------------------*/
+
+@media only screen and (min-width: 768px) {
+  .nav__desktop-container {
+    display: block;
+  }
+  .nav__device-container {
+    display: none;
+  }
+  nav {
+    height: 50px;
+  }
 }

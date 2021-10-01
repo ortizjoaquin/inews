@@ -40,12 +40,15 @@ header {
   margin: 0 5% 0 0;
 }
 
-#networks li {
-  display: inline;
+#networks ul {
+  display: flex;
+}
+
+#networks ul li {
   list-style: none;
 }
 
 #networks i {
-  font-size: 3.5rem;
-  margin: 0 0 0 15px;
+  font-size: 3rem;
+  margin: 0 0 0 10px;
 }
