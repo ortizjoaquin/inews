@@ -1,0 +1,9 @@
+* {
+  font-family: 'Roboto Slab', serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+nav {
+  display: none;
+}
