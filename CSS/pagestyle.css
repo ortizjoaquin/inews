@@ -9,6 +9,8 @@ body {
   background-color: #f9f9f9;
 }
 
+/* HEADER -------------------------------------------------------*/
+
 .container {
   display: flex;
   flex-flow: row wrap;
@@ -19,11 +21,12 @@ body {
 }
 
 header {
-  background: chartreuse;
+  background: #181818;
 }
 
 #logo h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
+  color: #f9f9f9;
 }
 
 #logo {
@@ -32,7 +35,8 @@ header {
 }
 
 #logo h1::first-letter {
-  color: blueviolet;
+  color: #39f09b;
+  font-size: 2.7rem;
 }
 
 #networks {
@@ -49,6 +53,54 @@ header {
 }
 
 #networks i {
-  font-size: 3rem;
+  font-size: 2rem;
   margin: 0 0 0 10px;
+  color: #f9f9f9;
+  text-decoration: none;
+}
+
+/* SECTION ------------------------------------------------------*/
+
+.section__wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  text-align: center;
+}
+
+.section__wrapper > * {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.section__wrapper div {
+  display: flex;
+  background-color: blueviolet;
+  height: auto;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.section__cont-1 {
+  flex: 5 1 500px;
+}
+
+.section__supra-cont-1 {
+  display: flex;
+  flex-flow: row wrap;
+  text-align: center;
+}
+
+.section__cont-2 {
+  flex: 0 1 500px;
+  height: fit-content;
+}
+
+.section__cont-3 {
+  flex: 0 1 500px;
+  height: fit-content;
 }
