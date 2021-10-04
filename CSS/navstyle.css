@@ -1,3 +1,10 @@
+* {
+  font-family: 'Noto Sans', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px;
+}
+
 /*FOR BOTH NAVS (DESKTOP AND DEVICE)-------------------------------*/
 
 nav {
@@ -7,15 +14,11 @@ nav {
   align-items: center;
   width: 100%;
   height: 75px;
-  background-color: #3a3a3a;
-  box-shadow: 0px 6px 5px 0px rgba(31, 31, 31, 0.74);
+  background-color: #000;
+  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
   }
 
-/*FOR DEVICE NAV --------------------------------------------------*/
-
-.nav__desktop-container {
-  display: none;
-}
+/*DEVICE NAV --------------------------------------------------*/
 
 .nav__device-container {
   width: 100%;
@@ -34,10 +37,10 @@ nav {
   color: #f9f9f9;
 }
 
-/*FOR DESKTOP NAV -------------------------------------------------*/
+/*DESKTOP NAV -------------------------------------------------*/
 
 .nav__desktop-container {
-  width: 100%;
+  display: none;
 }
 
 .nav__desktop-container ul {
@@ -61,19 +64,50 @@ nav {
   text-decoration: none;
 }
 
-/*HOVER EFFECTS-----------------------------------------------------*/
-
-
-
 /*MEDIA QUERY -----------------------------------------------------*/
 
 @media only screen and (min-width: 768px) {
   .nav__desktop-container {
     display: block;
+    padding: 2px 0 0 0;
+    width: 100%;
   }
+
+  .nav__desktop-container a {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  
+  .nav__desktop-container i {
+    margin: 0 10px 0 0;
+  }
+
+  /*HOVER EFFECTS---------------------------------------------------*/
+
+  .nav__desktop-container a:hover {
+    color: #b8b8b8;
+  }
+
+  .nav__desktop-container a::after {
+    content: "";
+    display: flex;
+    justify-content: center;
+    height: 2px;
+    background-color: #1b8aca;
+    width: 0%;
+    transition: all ease-in-out 180ms;
+  }
+
+  .nav__desktop-container a:hover::after {
+    width: 100%;
+  }
+
+  /*--------------------------------------------------------------*/
+
   .nav__device-container {
     display: none;
   }
+  
   nav {
     height: 50px;
   }
