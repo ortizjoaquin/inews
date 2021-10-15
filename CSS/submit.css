@@ -1,0 +1,41 @@
+* {
+  font-family: 'Noto Sans', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px;
+}
+
+/* TITLE -------------------------------------------------- */
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+/* FORM --------------------------------------------------- */
+
+label {
+  display: block;
+  margin: 10px 0px 6px 0px;
+}
+
+form {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0 0;
+}
+
+.form-col__1 {
+  margin: 0 10px 0 0;
+}
+
+.form-col__2 {
+  margin: 0 0 10px 0;
+}
