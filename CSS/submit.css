@@ -6,9 +6,20 @@
 }
 
 /* TITLE -------------------------------------------------- */
+section h2,h3,h4 {
+  margin: 0;
+  padding: 0;
+}
+
 .title {
   display: flex;
   justify-content: center;
+  align-items: baseline;
+  text-align: center;
+}
+
+.title h2 {
+
 }
 
 /* FORM --------------------------------------------------- */
@@ -20,12 +31,16 @@ label {
 
 form {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  align-items: flex-start;
+  flex-direction: column;
   width: 100%;
 }
 
+.form-container{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+
+}
 .button-container {
   display: flex;
   justify-content: center;
@@ -38,4 +53,22 @@ form {
 
 .form-col__2 {
   margin: 0 0 10px 0;
+}
+
+p {
+  display: block;
+}
+
+/* HIDE BROWSER DEFAULT STYLES ------------------------------------*/
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

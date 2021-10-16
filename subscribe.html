@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/eff0fb330b.js" crossorigin="anonymous"></script>
-  <script src="JS/app.js"></script>
+  <script defer src="JS/app.js"></script>
 </head>
 <body>
   <header>
@@ -71,59 +71,67 @@
   </nav>
   <section>
     <div class="title">
-      <h2>
-        Want to keep supporting freedom of speech?
-      </h2>
-      <h3>
-        Subscribe now!
-      </h3>
+      <div>
+        <h2>
+          Want to keep supporting freedom of speech?
+        </h2>
+        <h3>
+          Subscribe now!
+        </h3>
+        <h4>
+          Hello, <span id="userName"></span>
+        </h4>
+      </div>
     </div>
-    <form>
-      <div class="form-col__1">
-        <div>
-          <label for="name">Name</label>
-          <input type="text" id="name">
+    <form id="form">
+      <div class="form-container">
+        <div class="form-col__1">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" onkeyup="getName()">
+            <p id="errorname"></p>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email">
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input type="password" id="password">
+          </div>
+          <div>
+            <label for="age">Age</label>
+            <input type="number" id="age">
+          </div>
+          <div>
+            <label for="phone">Phone</label>
+            <input type="number" id="phone">
+          </div>
         </div>
-        <div>
-          <label for="email">Email</label>
-          <input type="email" id="email">
-        </div>
-        <div>
-          <label for="password">Password</label>
-          <input type="password" id="password">
-        </div>
-        <div>
-          <label for="age">Age</label>
-          <input type="number" id="age">
-        </div>
-        <div>
-          <label for="phone">Phone</label>
-          <input type="number" id="phone">
+        <div class="form-col__2">
+          <div>
+            <label for="adress">Adress</label>
+            <input type="text" id="adress">
+          </div>
+          <div>
+            <label for="city">City</label>
+            <input type="text" id="city">
+          </div>
+          <div>
+            <label for="postalcode">Postal Code</label>
+            <input type="number" id="postalcode">
+          </div>
+          <div>
+            <label for="id">ID Number</label>
+            <input type="number" id="id">
+          </div>
         </div>
       </div>
-      <div class="form-col__2">
-        <div>
-          <label for="adress">Adress</label>
-          <input type="text" id="adress">
-        </div>
-        <div>
-          <label for="city">City</label>
-          <input type="text" id="city">
-        </div>
-        <div>
-          <label for="postal-code">Postal Code</label>
-          <input type="number" id="postal-code">
-        </div>
-        <div>
-          <label for="id">ID Number</label>
-          <input type="number" id="id">
-        </div>
+      <div class="button-container">
+      <button type="submit" id="button" class="darkButton">Send</button>
       </div>
     </form>
-    <div class="button-container">
-    <button type="button" id="button" class="darkButton">Send</button>
-    </div>
-  </section>
+    <p id="valueName"></p>
   </section>
   <footer>
     <div class="footer__supra-container">
