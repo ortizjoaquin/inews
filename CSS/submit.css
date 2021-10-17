@@ -55,8 +55,10 @@ form {
   margin: 0 0 10px 0;
 }
 
-p {
+.errorMessage {
   display: block;
+  font-size: .7rem;
+  width: 192px;
 }
 
 /* HIDE BROWSER DEFAULT STYLES ------------------------------------*/

@@ -88,47 +88,60 @@
         <div class="form-col__1">
           <div>
             <label for="name">Name</label>
-            <input type="text" id="name" onkeyup="getName()">
-            <p id="errorname"></p>
+            <input type="text" id="name" onkeyup="getName()" onkeydown="return validateKeyName(event)">
+            <p class="errorMessage" id="nameError"></p>
           </div>
           <div>
             <label for="email">Email</label>
             <input type="email" id="email">
+            <p class="errorMessage" id="emailError"></p>
           </div>
           <div>
             <label for="password">Password</label>
             <input type="password" id="password">
+            <p class="errorMessage" id="passwordError"></p>
+          </div>
+          <div>
+            <label for="password">Confirm Password</label>
+            <input type="password" id="confirmPassword">
+            <p class="errorMessage" id="passwordConfirmationError"></p>
           </div>
           <div>
             <label for="age">Age</label>
             <input type="number" id="age">
-          </div>
-          <div>
-            <label for="phone">Phone</label>
-            <input type="number" id="phone">
+            <p class="errorMessage" id="ageError"></p>
           </div>
         </div>
         <div class="form-col__2">
           <div>
+            <label for="phone">Phone</label>
+            <input type="number" id="phone">
+            <p class="errorMessage" id="phoneError"></p>
+          </div>
+          <div>
             <label for="adress">Adress</label>
             <input type="text" id="adress">
+            <p class="errorMessage" id="adressError"></p>
           </div>
           <div>
             <label for="city">City</label>
             <input type="text" id="city">
+            <p class="errorMessage" id="cityError"></p>
           </div>
           <div>
             <label for="postalcode">Postal Code</label>
-            <input type="number" id="postalcode">
+            <input type="number" id="postalCode">
+            <p class="errorMessage" id="postalCodeError"></p>
           </div>
           <div>
             <label for="id">ID Number</label>
             <input type="number" id="id">
+            <p class="errorMessage" id="idError"></p>
           </div>
         </div>
       </div>
       <div class="button-container">
-      <button type="submit" id="button" class="darkButton">Send</button>
+      <button type="submit" id="button">Subscribe</button>
       </div>
     </form>
     <p id="valueName"></p>
