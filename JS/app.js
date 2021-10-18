@@ -5,9 +5,11 @@ var getName = ()=>{
   document.getElementById('userName').innerHTML=userName;
 }
 
-// ON KEY NAME
-var lettersAndSpaceOnly = /^[ña-zÑA-Z\s]/
+// RegExp
+var lettersAndSpaceOnly = /^[ña-zÑA-Z\s]/;
+var mustContainLettersAndNumbers = /^(?=.*[0-9])(?=.*[a-zA-Z])/;
 
+// ON KEY NAME
 function validateKeyName(e){
   return lettersAndSpaceOnly.test(e.key)
 }
@@ -40,18 +42,41 @@ function checkEmail(emailValue){
     if(dot < 0 || dot <= 2){
       return false;
     }
-    if (emailValue.endsWith('.') || emailValue.startsWith('.')){
+    if(emailValue.endsWith('.') || emailValue.startsWith('.')){
       return false;
-    }    
+    }
     return true;
+  }
+
+// remember, in this case passwordValue = password.value
+// Password validation
+function checkPassword(passwordValue){
+  if(!mustContainLettersAndNumbers.test(passwordValue)){
+    return false;
+  }
+  if (passwordValue === '' || passwordValue === null || passwordValue.length <= 8) {
+    return false;
+  }
+  return true;
+}
+
+// remember, in this case confirmPasswordValue = confirmPassword.value
+// Confirm password validation
+function checkConfirmPassword(confirmPasswordValue){
+  if (confirmPasswordValue === password.value) {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
 window.onload=function(){
   // INPUTS VARIABLES
   var name = document.getElementById('name')
   var email = document.getElementById('email')
-  // var password = document.getElementById('password')
-  // var confirmPassword = document.getElementById('confirmPassword')
+  var password = document.getElementById('password')
+  var confirmPassword = document.getElementById('confirmPassword')
   // var age = document.getElementById('age')
   // var phone = document.getElementById('phone')
   // var adress = document.getElementById('adress')
@@ -63,7 +88,8 @@ window.onload=function(){
   // ERROR VARIABLES
   var nameError = document.getElementById('nameError')
   var emailError = document.getElementById('emailError')
-  // var password = document.getElementById('password')
+  var passwordError = document.getElementById('passwordError')
+  var confirmPasswordError = document.getElementById('confirmPasswordError')
   // var age = document.getElementById('age')
   // var phone = document.getElementById('phone')
   // var adress = document.getElementById('adress')
@@ -73,21 +99,40 @@ window.onload=function(){
   // var form = document.getElementById('form')
   
   // VALIDATING FUNCTIONS
+  // Name validation (blur and focus)
   name.addEventListener('blur', function(){
     if (checkName(name.value)===false) {
-      nameError.innerText = 'Error, please type full name with more than 6 letters and a space in between';
+      nameError.innerText = 'Please type full name (first and last name separated by a space and at least 6 letters long)';
       nameError.style.display='block';
     }
   });
   name.addEventListener('focus', function(){hideError(nameError)});
 
+  // Email validation (blur and focus)
   email.addEventListener('blur', function(){
     if (checkEmail(email.value)===false){
-      emailError.innerText = 'Error, please type a valid email';
+      emailError.innerText = 'Please type a valid email';
       emailError.style.display='block';
     }
   });
   email.addEventListener('focus', function(){hideError(emailError)})
   
-  
+  // Password validation (blur and focus)
+  password.addEventListener('blur', function(){
+    if (checkPassword(password.value)===false){
+      passwordError.innerText = 'Please type a valid password';
+      passwordError.style.display='block';
+    }
+  });
+  password.addEventListener('focus', function(){hideError(passwordError)})
+
+  // Confirm password validation (blur and focus)
+  confirmPassword.addEventListener('blur', function(){
+    if (checkConfirmPassword(confirmPassword.value)===false){
+      confirmPasswordError.innerText = 'Passwords are not the same';
+      confirmPasswordError.style.display='block';
+    }
+  });
+  confirmPassword.addEventListener('focus', function(){hideError(confirmPasswordError)})
+
 }
