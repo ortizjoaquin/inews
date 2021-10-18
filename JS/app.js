@@ -24,6 +24,8 @@ function hideError(errorMessage){
   errorMessage.style.display='none';
 }
 
+// --------------------------------------------------------------------------------------------------------------------
+
 // DECLARED FUNCTIONS FOR VALIDATING (first declared, later on called to work) ----------------------------------------
 
 // Name validation
@@ -153,6 +155,8 @@ function checkId(idValue){
   return true
 }
 
+// --------------------------------------------------------------------------------------------------------------------
+
 // WINDOWS ONLOAD (fixes getElement issues with empty inputs) ---------------------------------------------------------
 
 window.onload=function(){
@@ -275,5 +279,4 @@ window.onload=function(){
     }
   });
   id.addEventListener('focus', function(){hideError(idError)})
-
 }
