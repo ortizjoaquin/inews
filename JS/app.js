@@ -7,11 +7,17 @@ var getName = ()=>{
 
 // RegExp
 var lettersAndSpaceOnly = /^[ña-zÑA-Z\s]/;
+var numbersOnly = /^[\d]/;
 var mustContainLettersAndNumbers = /^(?=.*[0-9])(?=.*[a-zA-Z])/;
 
 // ON KEY NAME
 function validateKeyName(e){
   return lettersAndSpaceOnly.test(e.key)
+}
+
+// ON KEY AGE
+function validateKeyAge(e){
+  return numbersOnly.test(e.key)
 }
 
 // HIDE ERROR FUNCTION
@@ -20,6 +26,8 @@ function hideError(errorMessage){
   errorMessage.style.display='none';
 }
 
+
+// DECLARED FUNCTIONS FOR VALIDATING
 // remember, in this case nameValue = name.value
 // Name validation
 function checkName(nameValue){
@@ -71,14 +79,23 @@ function checkConfirmPassword(confirmPasswordValue){
   }
 }
 
+// remember, in this case ageValue = age.value
+// Age validation
+function checkAge(ageValue){
+  if (ageValue === '' || ageValue === null || ageValue < 18 || ageValue % 1 != 0) {
+    return false;
+  }
+  return true;
+}
+
 window.onload=function(){
   // INPUTS VARIABLES
   var name = document.getElementById('name')
   var email = document.getElementById('email')
   var password = document.getElementById('password')
   var confirmPassword = document.getElementById('confirmPassword')
-  // var age = document.getElementById('age')
-  // var phone = document.getElementById('phone')
+  var age = document.getElementById('age')
+  var phone = document.getElementById('phone')
   // var adress = document.getElementById('adress')
   // var city = document.getElementById('city')
   // var postalCode = document.getElementById('postalCode')
@@ -90,8 +107,8 @@ window.onload=function(){
   var emailError = document.getElementById('emailError')
   var passwordError = document.getElementById('passwordError')
   var confirmPasswordError = document.getElementById('confirmPasswordError')
-  // var age = document.getElementById('age')
-  // var phone = document.getElementById('phone')
+  var ageError = document.getElementById('ageError')
+  var phoneError = document.getElementById('phoneError')
   // var adress = document.getElementById('adress')
   // var city = document.getElementById('city')
   // var postalCode = document.getElementById('postalCode')
@@ -134,5 +151,14 @@ window.onload=function(){
     }
   });
   confirmPassword.addEventListener('focus', function(){hideError(confirmPasswordError)})
+
+  // Age validation (blur and focus)
+  age.addEventListener('blur', function(){
+    if (checkAge(age.value)===false){
+      ageError.innerText = 'Must be at least 18 years old';
+      ageError.style.display='block';
+    }
+  });
+  age.addEventListener('focus', function(){hideError(ageError)})
 
 }
