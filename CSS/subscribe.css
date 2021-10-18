@@ -7,7 +7,7 @@
 
 /* TITLE -------------------------------------------------- */
 section h2,h3,h4 {
-  margin: 0;
+  margin: 0 0 15px 0;
   padding: 0;
 }
 
@@ -23,6 +23,10 @@ section h2,h3,h4 {
 label {
   display: block;
   margin: 10px 0px 6px 0px;
+}
+
+input {
+  width: 100%;
 }
 
 form {
@@ -44,11 +48,13 @@ form {
 }
 
 .form-col__1 {
-  margin: 0 10px 0 0;
+  margin: 0 10px 0 10px;
+  width: 250px;
 }
 
 .form-col__2 {
-  margin: 0 0 10px 0;
+  margin: 0 10px 0 10px;
+  width: 250px;
 }
 
 .errorMessage {
