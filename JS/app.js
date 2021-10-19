@@ -19,7 +19,6 @@ function validateKeyName(e){
 }
 
 // HIDE ERROR FUNCTION (this makes the error messages to be non-displayed as default) ---------------------------------
-window.onload=function(){
 function hideError(errorMessage){
   //console.log(errorMessage)
   errorMessage.style.display='none';
@@ -30,9 +29,8 @@ function hideError(errorMessage){
 // DECLARED FUNCTIONS FOR VALIDATING (first declared, later on called to work) ----------------------------------------
 
 // Name validation
-// remember, in this case nameValue = name.value
 function checkName(nameValue){
-  // var spaceBetween = nameValue.indexOf(' ');
+  var spaceBetween = nameValue.indexOf(' ');
   if (nameValue === '' || nameValue === null || nameValue.length <= 6 || spaceBetween < 0 || nameValue.startsWith(' ') || nameValue.endsWith(' ')) {
     return false
   }
@@ -40,14 +38,13 @@ function checkName(nameValue){
 }
 
 // Email validation
-// remember, in this case emailValue = email.value
 function checkEmail(emailValue){
-  // var atSymbol = emailValue.indexOf("@");
+  var atSymbol = emailValue.indexOf("@");
   if(atSymbol < 1){
     return false;
   }
   var domain = emailValue.slice(atSymbol);
-  // var dot = domain.indexOf(".");
+  var dot = domain.indexOf(".");
   if(dot < 0 || dot <= 2){
     return false;
   }
@@ -61,7 +58,6 @@ function checkEmail(emailValue){
 }
 
 // Password validation
-// remember, in this case passwordValue = password.value
 function checkPassword(passwordValue){
   if(!mustContainLettersAndNumbers.test(passwordValue)){
     return false;
@@ -76,7 +72,6 @@ function checkPassword(passwordValue){
 }
 
 // Confirm password validation
-// remember, in this case confirmPasswordValue = confirmPassword.value
 function checkConfirmPassword(confirmPasswordValue){
   if (confirmPasswordValue === password.value) {
     return true;
@@ -87,7 +82,6 @@ function checkConfirmPassword(confirmPasswordValue){
 }
 
 // Age validation
-// remember, in this case ageValue = age.value
 function checkAge(ageValue){
   if (ageValue === '' || ageValue === null || ageValue < 18 || ageValue % 1 != 0) {
     return false;
@@ -99,7 +93,6 @@ function checkAge(ageValue){
 }
 
 // Phone validation
-// remember, in this case phoneValue = phone.value
 function checkPhone(phoneValue){
   if (phoneValue === '' || phoneValue === null || phoneValue.length < 7) {
     return false;
@@ -111,9 +104,8 @@ function checkPhone(phoneValue){
 }
 
 // Adress validation
-// remember, in this case adressValue = adress.value
 function checkAdress(adressValue){
-  // var spaceBetween = adressValue.indexOf(' ');
+  var spaceBetween = adressValue.indexOf(' ');
   if (adressValue === '' || adressValue === null || adressValue.length < 5 || spaceBetween < 0 || adressValue.startsWith(' ') || adressValue.endsWith(' ')) {
     return false
   }
@@ -124,7 +116,6 @@ function checkAdress(adressValue){
 }
 
 // City validation
-// remember, in this case cityValue = city.value
 function checkCity(cityValue){
   if (cityValue === '' || cityValue === null || cityValue.length < 3 || cityValue.startsWith(' ') || cityValue.endsWith(' ')) {
     return false
@@ -133,7 +124,6 @@ function checkCity(cityValue){
 }
 
 // Postal Code validation
-// remember, in this case postalCodeValue = postalCode.value
 function checkPostalCode(postalCodeValue){
   if (postalCodeValue === '' || postalCodeValue === null || postalCodeValue.length < 3 || postalCodeValue.startsWith(' ') || postalCodeValue.endsWith(' ')) {
     return false
@@ -148,25 +138,18 @@ function checkPostalCode(postalCodeValue){
 }
 
 // ID validation
-// remember, in this case idValue = id.value
 function checkId(idValue){
   if (idValue === '' || idValue === null || idValue.length < 7 || idValue.length > 8) {
     return false
   }
   return true
 }
-
-
-
-function checkForm(){
-    return (checkName() && checkEmail() && checkPassword() && checkAge() && checkPhone() && checkAdress() && checkCity() && checkPostalCode() && checkId())
-}
-
+  
 // --------------------------------------------------------------------------------------------------------------------
 
 // WINDOWS ONLOAD (fixes getElement issues with empty inputs) ---------------------------------------------------------
-
-
+window.onload=function(){
+  
   // INPUTS VARIABLES -------------------------------------------------------------------------------------------------
   var name = document.getElementById('name')
   var email = document.getElementById('email')
@@ -178,7 +161,7 @@ function checkForm(){
   var city = document.getElementById('city')
   var postalCode = document.getElementById('postalCode')
   var id = document.getElementById('id')
-  var form = document.getElementById('button')
+  var form = document.getElementById('form')
   
   // ERROR VARIABLES --------------------------------------------------------------------------------------------------
   var nameError = document.getElementById('nameError')
@@ -191,7 +174,6 @@ function checkForm(){
   var cityError = document.getElementById('cityError')
   var postalCodeError = document.getElementById('postalCodeError')
   var idError = document.getElementById('idError')
-  //var formError = document.getElementById('formError')
   
   //-------------------------------------------------------------------------------------------------------------------
 
@@ -287,26 +269,52 @@ function checkForm(){
   id.addEventListener('focus', function(){hideError(idError)})
 
   // ------------------------------------------------------------------------------------------------------------------
+
   // GENERAL VALIDATION (whole form)
 
-  // Form validation (blur and focus)
-  form.addEventListener('click', function(e){
+  // Form validation --------------------------------------------------------------------------------------------------
+  form.addEventListener('submit', function(e){
     e.preventDefault()
-    console.log('hola')
-    if (checkForm()){
-      alert('passed')
-      console.log(name.value)
-      console.log(email.value)
-      console.log(password.value)
-      console.log(confirmPassword.value)
-      console.log(age.value)
-      console.log(phone.value)
-      console.log(adress.value)
-      console.log(city.value)
-      console.log(id.value)
-    }
-    else alert ('NOPE')
-  });
+    var messages = []
+    e.target.name.nextElementSibling.textContent ? messages.push(e.target.name.nextElementSibling.textContent) : null
+    e.target.email.nextElementSibling.textContent ? messages.push(e.target.email.nextElementSibling.textContent) : null
+    e.target.password.nextElementSibling.textContent ? messages.push(e.target.password.nextElementSibling.textContent) : null
+    e.target.confirmPassword.nextElementSibling.textContent ? messages.push(e.target.confirmPassword.nextElementSibling.textContent) : null
+    e.target.age.nextElementSibling.textContent ? messages.push(e.target.age.nextElementSibling.textContent) : null
+    e.target.phone.nextElementSibling.textContent ? messages.push(e.target.phone.nextElementSibling.textContent) : null
+    e.target.adress.nextElementSibling.textContent ? messages.push(e.target.adress.nextElementSibling.textContent) : null
+    e.target.city.nextElementSibling.textContent ? messages.push(e.target.city.nextElementSibling.textContent) : null
+    e.target.postalCode.nextElementSibling.textContent ? messages.push(e.target.postalCode.nextElementSibling.textContent) : null
+    e.target.id.nextElementSibling.textContent ? messages.push(e.target.id.nextElementSibling.textContent) : null
 
-  
+    if ((checkName(name.value)===true)&&
+    (checkEmail(email.value)===true)&&
+    (checkPassword(password.value)===true)&&
+    (checkConfirmPassword(confirmPassword.value)===true)&&
+    (checkAge(age.value)===true)&&
+    (checkPhone(phone.value)===true)&&
+    (checkAdress(adress.value)===true)&&
+    (checkCity(city.value)===true)&&
+    (checkPostalCode(postalCode.value)===true)&&
+    (checkId(id.value)===true)){
+      alert('Form Validated!\n' +
+      '\n' +
+      'Name: ' + name.value + '\n' +
+      'Email: ' + email.value + '\n' +
+      'Age: ' + age.value + '\n' +
+      'Phone: ' + phone.value + '\n' +
+      'Adress: ' + adress.value + '\n' +
+      'City: ' + city.value + '\n' +
+      'Postal Code: ' + postalCode.value + '\n' +
+      'ID: ' + id.value + '\n')
+    }
+    else {
+      if(messages.length > 0){
+        alert(messages.join('\n'))
+      }
+      else{
+        alert ('Must complete the fields!')
+      }
+  }
+  });
 }

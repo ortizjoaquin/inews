@@ -20,3 +20,6 @@ Fifth project of the "Became a Software Developer" course.
 
 # Description:
 This week's project was about adding a subscribe page to our fictional news website, using JavaScript, following the DOM concepts, and keeping the Responsive Design.
+
+# Running:
+Download the code on a zip file, and run index.html, or directly run the GitHub Pages link.
