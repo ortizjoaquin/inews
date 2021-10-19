@@ -19,8 +19,9 @@ function validateKeyName(e){
 }
 
 // HIDE ERROR FUNCTION (this makes the error messages to be non-displayed as default) ---------------------------------
+window.onload=function(){
 function hideError(errorMessage){
-  console.log(errorMessage)
+  //console.log(errorMessage)
   errorMessage.style.display='none';
 }
 
@@ -31,7 +32,7 @@ function hideError(errorMessage){
 // Name validation
 // remember, in this case nameValue = name.value
 function checkName(nameValue){
-  var spaceBetween = nameValue.indexOf(' ');
+  // var spaceBetween = nameValue.indexOf(' ');
   if (nameValue === '' || nameValue === null || nameValue.length <= 6 || spaceBetween < 0 || nameValue.startsWith(' ') || nameValue.endsWith(' ')) {
     return false
   }
@@ -41,12 +42,12 @@ function checkName(nameValue){
 // Email validation
 // remember, in this case emailValue = email.value
 function checkEmail(emailValue){
-  var atSymbol = emailValue.indexOf("@");
+  // var atSymbol = emailValue.indexOf("@");
   if(atSymbol < 1){
     return false;
   }
   var domain = emailValue.slice(atSymbol);
-  var dot = domain.indexOf(".");
+  // var dot = domain.indexOf(".");
   if(dot < 0 || dot <= 2){
     return false;
   }
@@ -112,7 +113,7 @@ function checkPhone(phoneValue){
 // Adress validation
 // remember, in this case adressValue = adress.value
 function checkAdress(adressValue){
-  var spaceBetween = adressValue.indexOf(' ');
+  // var spaceBetween = adressValue.indexOf(' ');
   if (adressValue === '' || adressValue === null || adressValue.length < 5 || spaceBetween < 0 || adressValue.startsWith(' ') || adressValue.endsWith(' ')) {
     return false
   }
@@ -155,11 +156,16 @@ function checkId(idValue){
   return true
 }
 
+
+
+function checkForm(){
+    return (checkName() && checkEmail() && checkPassword() && checkAge() && checkPhone() && checkAdress() && checkCity() && checkPostalCode() && checkId())
+}
+
 // --------------------------------------------------------------------------------------------------------------------
 
 // WINDOWS ONLOAD (fixes getElement issues with empty inputs) ---------------------------------------------------------
 
-window.onload=function(){
 
   // INPUTS VARIABLES -------------------------------------------------------------------------------------------------
   var name = document.getElementById('name')
@@ -172,7 +178,7 @@ window.onload=function(){
   var city = document.getElementById('city')
   var postalCode = document.getElementById('postalCode')
   var id = document.getElementById('id')
-  // var form = document.getElementById('form')
+  var form = document.getElementById('button')
   
   // ERROR VARIABLES --------------------------------------------------------------------------------------------------
   var nameError = document.getElementById('nameError')
@@ -185,7 +191,7 @@ window.onload=function(){
   var cityError = document.getElementById('cityError')
   var postalCodeError = document.getElementById('postalCodeError')
   var idError = document.getElementById('idError')
-  // var formError = document.getElementById('formError')
+  //var formError = document.getElementById('formError')
   
   //-------------------------------------------------------------------------------------------------------------------
 
@@ -279,4 +285,28 @@ window.onload=function(){
     }
   });
   id.addEventListener('focus', function(){hideError(idError)})
+
+  // ------------------------------------------------------------------------------------------------------------------
+  // GENERAL VALIDATION (whole form)
+
+  // Form validation (blur and focus)
+  form.addEventListener('click', function(e){
+    e.preventDefault()
+    console.log('hola')
+    if (checkForm()){
+      alert('passed')
+      console.log(name.value)
+      console.log(email.value)
+      console.log(password.value)
+      console.log(confirmPassword.value)
+      console.log(age.value)
+      console.log(phone.value)
+      console.log(adress.value)
+      console.log(city.value)
+      console.log(id.value)
+    }
+    else alert ('NOPE')
+  });
+
+  
 }
