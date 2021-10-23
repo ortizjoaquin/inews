@@ -1,5 +1,5 @@
 // AUTO WRITING NAME ----------------------------------------------------------------------------------------------
-var getName = ()=>{
+var getName = function(){
   var userName = document.getElementById('name').value;
   document.getElementById('userName').innerHTML=userName;
 }
@@ -18,15 +18,14 @@ function validateKeyName(e){
   return lettersAndSpaceOnly.test(e.key)
 }
 
-// HIDE ERROR FUNCTION (this makes the error messages to be non-displayed as default) ---------------------------------
+// Hide error messages (this makes the error messages to be non-displayed as default) ---------------------------------
 function hideError(errorMessage){
-  //console.log(errorMessage)
   errorMessage.style.display='none';
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 
-// DECLARED FUNCTIONS FOR VALIDATING (first declared, later on called to work) ----------------------------------------
+// Validating functions declared (first declared, later on called to work) ----------------------------------------
 
 // Name validation
 function checkName(nameValue){
@@ -162,7 +161,21 @@ window.onload=function(){
   var postalCode = document.getElementById('postalCode')
   var id = document.getElementById('id')
   var form = document.getElementById('form')
-  
+
+  // INPUT LIST -------------------------------------------------------------------------------------------------------
+  var inputList = [
+    name,
+    email,
+    password,
+    confirmPassword,
+    age,
+    phone,
+    adress,
+    city,
+    postalCode,
+    id,
+  ]
+
   // ERROR VARIABLES --------------------------------------------------------------------------------------------------
   var nameError = document.getElementById('nameError')
   var emailError = document.getElementById('emailError')
@@ -177,35 +190,39 @@ window.onload=function(){
   
   //-------------------------------------------------------------------------------------------------------------------
 
-  // VALIDATING FUNCTIONS
-  // Name validation (blur and focus)
+  // VALIDATING FUNCTIONS ---------------------------------------------------------------------------------------------
+
+  // Name validation (blur and focus) ---------------------------------------------------------------------------------
   name.addEventListener('blur', function(){
     if (checkName(name.value)===false) {
       nameError.innerText = 'Please type full name (first and last name separated by a space and at least 6 letters long)';
       nameError.style.display='block';
     }
-  });
-  name.addEventListener('focus', function(){hideError(nameError)});
+  })
+  name.addEventListener('focus', function(){hideError(nameError);
+  })
 
-  // Email validation (blur and focus)
+  // Email validation (blur and focus) --------------------------------------------------------------------------------
   email.addEventListener('blur', function(){
     if (checkEmail(email.value)===false){
       emailError.innerText = 'Please type a valid email';
       emailError.style.display='block';
     }
-  });
-  email.addEventListener('focus', function(){hideError(emailError)})
+  })
+  email.addEventListener('focus', function(){hideError(emailError);
+  })
   
-  // Password validation (blur and focus)
+  // Password validation (blur and focus) -----------------------------------------------------------------------------
   password.addEventListener('blur', function(){
     if (checkPassword(password.value)===false){
       passwordError.innerText = 'Please type a valid password (must contain at least 8 characters, mixing numbers and letters only)';
       passwordError.style.display='block';
     }
   });
-  password.addEventListener('focus', function(){hideError(passwordError)})
+  password.addEventListener('focus', function(){hideError(passwordError);
+  })
 
-  // Confirm password validation (blur and focus)
+  // Confirm password validation (blur and focus) ---------------------------------------------------------------------
   confirmPassword.addEventListener('blur', function(){
     if (checkConfirmPassword(confirmPassword.value)===false){
       confirmPasswordError.innerText = 'Passwords are not the same';
@@ -275,82 +292,121 @@ window.onload=function(){
   // Form validation --------------------------------------------------------------------------------------------------
   form.addEventListener('submit', function(e){
     e.preventDefault()
-    openModal()
-// var messages = []
-// e.target.name.nextElementSibling.textContent ? messages.push(e.target.name.nextElementSibling.textContent) : null
-// e.target.email.nextElementSibling.textContent ? messages.push(e.target.email.nextElementSibling.textContent) : null
-// e.target.password.nextElementSibling.textContent ? messages.push(e.target.password.nextElementSibling.textContent) : null
-// e.target.confirmPassword.nextElementSibling.textContent ? messages.push(e.target.confirmPassword.nextElementSibling.textContent) : null
-// e.target.age.nextElementSibling.textContent ? messages.push(e.target.age.nextElementSibling.textContent) : null
-// e.target.phone.nextElementSibling.textContent ? messages.push(e.target.phone.nextElementSibling.textContent) : null
-// e.target.adress.nextElementSibling.textContent ? messages.push(e.target.adress.nextElementSibling.textContent) : null
-// e.target.city.nextElementSibling.textContent ? messages.push(e.target.city.nextElementSibling.textContent) : null
-// e.target.postalCode.nextElementSibling.textContent ? messages.push(e.target.postalCode.nextElementSibling.textContent) : null
-// e.target.id.nextElementSibling.textContent ? messages.push(e.target.id.nextElementSibling.textContent) : null
+    // openModal()
+    var messages = []
+    e.target.name.nextElementSibling.textContent ? messages.push(e.target.name.nextElementSibling.textContent) : null
+    e.target.email.nextElementSibling.textContent ? messages.push(e.target.email.nextElementSibling.textContent) : null
+    e.target.password.nextElementSibling.textContent ? messages.push(e.target.password.nextElementSibling.textContent) : null
+    e.target.confirmPassword.nextElementSibling.textContent ? messages.push(e.target.confirmPassword.nextElementSibling.textContent) : null
+    e.target.age.nextElementSibling.textContent ? messages.push(e.target.age.nextElementSibling.textContent) : null
+    e.target.phone.nextElementSibling.textContent ? messages.push(e.target.phone.nextElementSibling.textContent) : null
+    e.target.adress.nextElementSibling.textContent ? messages.push(e.target.adress.nextElementSibling.textContent) : null
+    e.target.city.nextElementSibling.textContent ? messages.push(e.target.city.nextElementSibling.textContent) : null
+    e.target.postalCode.nextElementSibling.textContent ? messages.push(e.target.postalCode.nextElementSibling.textContent) : null
+    e.target.id.nextElementSibling.textContent ? messages.push(e.target.id.nextElementSibling.textContent) : null
 
-// if ((checkName(name.value)===true)&&
-// (checkEmail(email.value)===true)&&
-// (checkPassword(password.value)===true)&&
-// (checkConfirmPassword(confirmPassword.value)===true)&&
-// (checkAge(age.value)===true)&&
-// (checkPhone(phone.value)===true)&&
-// (checkAdress(adress.value)===true)&&
-// (checkCity(city.value)===true)&&
-// (checkPostalCode(postalCode.value)===true)&&
-// (checkId(id.value)===true)){
-//   alert('Form Validated!\n' +
-//   '\n' +
-//   'Name: ' + name.value + '\n' +
-//   'Email: ' + email.value + '\n' +
-//   'Age: ' + age.value + '\n' +
-//   'Phone: ' + phone.value + '\n' +
-//   'Adress: ' + adress.value + '\n' +
-//   'City: ' + city.value + '\n' +
-//   'Postal Code: ' + postalCode.value + '\n' +
-//   'ID: ' + id.value + '\n')
-// }
-//   else {
-//     if(messages.length > 0){
-//       alert(messages.join('\n'))
-//     }
-//     else{
-//       alert ('Must complete the fields!')
-//     }
-//   }
-// });
-})
+    if ((checkName(name.value)===true)&&
+    (checkEmail(email.value)===true)&&
+    (checkPassword(password.value)===true)&&
+    (checkConfirmPassword(confirmPassword.value)===true)&&
+    (checkAge(age.value)===true)&&
+    (checkPhone(phone.value)===true)&&
+    (checkAdress(adress.value)===true)&&
+    (checkCity(city.value)===true)&&
+    (checkPostalCode(postalCode.value)===true)&&
+    (checkId(id.value)===true))
+    {
+      for (var i = 0; i < inputList.length; i++) {
+        serverParameters += inputList[i].id + '=' + inputList[i].value + '&';
+      }
+      var fullServerParameters = serverParameters.replace(/\s/g, '%20');
+      var fullUrl = url + fullServerParameters;
+      console.log(fullUrl)
+      fetch(fullUrl)
+        .then(function(fullUrl) { //si vuelve correcto vuelve por los then
+          return fullUrl.json();
+        })
+        .then(function(data) { //si vuelve correcto vuelve por los then
+          console.log(data.name,data.email,data.age,data.phone,data.adress,data.city,data.postalCode,data.id)
+          modalSuccess(data)
+        })
+        .catch(function(err) { //si hay error vuelve por el catch
+          console.log(err);
+          modalErrorServer(err)
+        })
+    }
+    else {
+      if(messages.length > 0){
+        // alert(messages.join('\n'))
+        modalErrorLocal(messages)
+      }
+      else{
+        // modalErrorBlank()
+        alert ('Must complete the fields!')
+      }
+    }
+  });
 
-// SERVER ----------------------------------------------------
+  // SERVER ----------------------------------------------------
 
+  // Variables
+  var url = 'https://curso-dev-2021.herokuapp.com/newsletter';
+  var serverParameters = '?';
 
+  // MODAL -----------------------------------------------------
 
-// MODAL -----------------------------------------------------
-// Get the modal element
-var modal = document.getElementById('simpleModal');
-// Get the button for opening the modal 
-var modalBtn = document.getElementById('submit');
-// Get close button
-var closeBtn = document.getElementsByClassName('closeBtn')[0];
+  // Get the modal element
+  var modal = document.getElementById('simpleModal');
+  // Get the button for opening the modal 
+  var modalBtn = document.getElementById('submit');
+  // Get close button
+  var closeBtn = document.getElementsByClassName('closeBtn')[0];
+  // Modal title
+  var modalTitle = document.getElementById('modal-title');
+  // Modal body
+  var modalList = document.getElementById('modal-list')
 
-// Close click listener
-closeBtn.addEventListener('click', closeModal);
-// Close window listener
-window.addEventListener('click', outsideClick)
+  // Close click listener
+  closeBtn.addEventListener('click', closeModal);
+  // Close window listener
+  window.addEventListener('click', outsideClick)
 
+  // ModalSuccess
+  function modalSuccess(data){
+    modalList.innerHTML = '';
+    modal.style.display = 'block';
+    modalTitle.innerHTML = 'Validation Succes!';
+    for (var property in data){
+      modalList.innerHTML += `<li>${data[property]}</li>`
+    }
+  }
+  // Modal Error Server
+  function modalErrorServer(err){
+    modalList.innerHTML = '';
+    modal.style.display = 'block';
+    modalTitle.innerHTML = 'Server error!';
+    for (var property in err){
+      modalList.innerHTML += `<li>${err[property]}</li>`
+    }
+  }
+  // Modal Local Error Validation
+  function modalErrorLocal(locError){
+    modalList.innerHTML = '';
+    modal.style.display = 'block';
+    modalTitle.innerHTML = 'Please correct the following mistakes:';
+    for (let i = 0; i < locError.length; i++) {
+      modalList.innerHTML += `<li class='modal-error'>${locError[i]}</li>`;
+    }
+  }
 
-
-// Function to open modal
-function openModal(){
-  modal.style.display = 'block';
-}
-// Function to close modal by button
-function closeModal(){
-  modal.style.display = 'none';
-}
-// Function to close modal by clicking outside
-function outsideClick(e){
-  if(e.target === modal){
+  // Function to close modal by button
+  function closeModal(){
     modal.style.display = 'none';
   }
-}
+  // Function to close modal by clicking outside
+  function outsideClick(e){
+    if(e.target === modal){
+      modal.style.display = 'none';
+    }
+  }
 }

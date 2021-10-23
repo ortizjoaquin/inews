@@ -137,6 +137,12 @@ body {
   to{ opacity: 1;}
 }
 
+.modal-error {
+  color:red;
+  list-style: none;
+  
+}
+
 /* HIDE BROWSER DEFAULT STYLES ------------------------------------*/
 
 /* Chrome, Safari, Edge, Opera */
