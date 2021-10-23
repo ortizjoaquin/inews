@@ -275,46 +275,82 @@ window.onload=function(){
   // Form validation --------------------------------------------------------------------------------------------------
   form.addEventListener('submit', function(e){
     e.preventDefault()
-    var messages = []
-    e.target.name.nextElementSibling.textContent ? messages.push(e.target.name.nextElementSibling.textContent) : null
-    e.target.email.nextElementSibling.textContent ? messages.push(e.target.email.nextElementSibling.textContent) : null
-    e.target.password.nextElementSibling.textContent ? messages.push(e.target.password.nextElementSibling.textContent) : null
-    e.target.confirmPassword.nextElementSibling.textContent ? messages.push(e.target.confirmPassword.nextElementSibling.textContent) : null
-    e.target.age.nextElementSibling.textContent ? messages.push(e.target.age.nextElementSibling.textContent) : null
-    e.target.phone.nextElementSibling.textContent ? messages.push(e.target.phone.nextElementSibling.textContent) : null
-    e.target.adress.nextElementSibling.textContent ? messages.push(e.target.adress.nextElementSibling.textContent) : null
-    e.target.city.nextElementSibling.textContent ? messages.push(e.target.city.nextElementSibling.textContent) : null
-    e.target.postalCode.nextElementSibling.textContent ? messages.push(e.target.postalCode.nextElementSibling.textContent) : null
-    e.target.id.nextElementSibling.textContent ? messages.push(e.target.id.nextElementSibling.textContent) : null
+    openModal()
+// var messages = []
+// e.target.name.nextElementSibling.textContent ? messages.push(e.target.name.nextElementSibling.textContent) : null
+// e.target.email.nextElementSibling.textContent ? messages.push(e.target.email.nextElementSibling.textContent) : null
+// e.target.password.nextElementSibling.textContent ? messages.push(e.target.password.nextElementSibling.textContent) : null
+// e.target.confirmPassword.nextElementSibling.textContent ? messages.push(e.target.confirmPassword.nextElementSibling.textContent) : null
+// e.target.age.nextElementSibling.textContent ? messages.push(e.target.age.nextElementSibling.textContent) : null
+// e.target.phone.nextElementSibling.textContent ? messages.push(e.target.phone.nextElementSibling.textContent) : null
+// e.target.adress.nextElementSibling.textContent ? messages.push(e.target.adress.nextElementSibling.textContent) : null
+// e.target.city.nextElementSibling.textContent ? messages.push(e.target.city.nextElementSibling.textContent) : null
+// e.target.postalCode.nextElementSibling.textContent ? messages.push(e.target.postalCode.nextElementSibling.textContent) : null
+// e.target.id.nextElementSibling.textContent ? messages.push(e.target.id.nextElementSibling.textContent) : null
 
-    if ((checkName(name.value)===true)&&
-    (checkEmail(email.value)===true)&&
-    (checkPassword(password.value)===true)&&
-    (checkConfirmPassword(confirmPassword.value)===true)&&
-    (checkAge(age.value)===true)&&
-    (checkPhone(phone.value)===true)&&
-    (checkAdress(adress.value)===true)&&
-    (checkCity(city.value)===true)&&
-    (checkPostalCode(postalCode.value)===true)&&
-    (checkId(id.value)===true)){
-      alert('Form Validated!\n' +
-      '\n' +
-      'Name: ' + name.value + '\n' +
-      'Email: ' + email.value + '\n' +
-      'Age: ' + age.value + '\n' +
-      'Phone: ' + phone.value + '\n' +
-      'Adress: ' + adress.value + '\n' +
-      'City: ' + city.value + '\n' +
-      'Postal Code: ' + postalCode.value + '\n' +
-      'ID: ' + id.value + '\n')
-    }
-    else {
-      if(messages.length > 0){
-        alert(messages.join('\n'))
-      }
-      else{
-        alert ('Must complete the fields!')
-      }
+// if ((checkName(name.value)===true)&&
+// (checkEmail(email.value)===true)&&
+// (checkPassword(password.value)===true)&&
+// (checkConfirmPassword(confirmPassword.value)===true)&&
+// (checkAge(age.value)===true)&&
+// (checkPhone(phone.value)===true)&&
+// (checkAdress(adress.value)===true)&&
+// (checkCity(city.value)===true)&&
+// (checkPostalCode(postalCode.value)===true)&&
+// (checkId(id.value)===true)){
+//   alert('Form Validated!\n' +
+//   '\n' +
+//   'Name: ' + name.value + '\n' +
+//   'Email: ' + email.value + '\n' +
+//   'Age: ' + age.value + '\n' +
+//   'Phone: ' + phone.value + '\n' +
+//   'Adress: ' + adress.value + '\n' +
+//   'City: ' + city.value + '\n' +
+//   'Postal Code: ' + postalCode.value + '\n' +
+//   'ID: ' + id.value + '\n')
+// }
+//   else {
+//     if(messages.length > 0){
+//       alert(messages.join('\n'))
+//     }
+//     else{
+//       alert ('Must complete the fields!')
+//     }
+//   }
+// });
+})
+
+// SERVER ----------------------------------------------------
+
+
+
+// MODAL -----------------------------------------------------
+// Get the modal element
+var modal = document.getElementById('simpleModal');
+// Get the button for opening the modal 
+var modalBtn = document.getElementById('submit');
+// Get close button
+var closeBtn = document.getElementsByClassName('closeBtn')[0];
+
+// Close click listener
+closeBtn.addEventListener('click', closeModal);
+// Close window listener
+window.addEventListener('click', outsideClick)
+
+
+
+// Function to open modal
+function openModal(){
+  modal.style.display = 'block';
+}
+// Function to close modal by button
+function closeModal(){
+  modal.style.display = 'none';
+}
+// Function to close modal by clicking outside
+function outsideClick(e){
+  if(e.target === modal){
+    modal.style.display = 'none';
   }
-  });
+}
 }

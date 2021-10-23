@@ -64,6 +64,79 @@ form {
   color: red;
 }
 
+body {
+  background-color: #fff;
+  height: 100%;
+}
+
+/*BUTTON ----------------------------------------------------------*/
+#button{
+  background-color: #fff;
+  margin: 20px 0 0 0;
+  padding: .7em .7em;
+  color:#212324;
+  border: 2px solid #1b8aca;
+  border-radius: 50px;
+}
+
+#button:hover{
+  background-color: #1b8aca;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* MODAL ----------------------------------------------------------*/
+.modal{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width:100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  animation-name:modalbackground;
+  animation-duration:.3s;
+}
+
+.modal-content{
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 10px 15px;
+  width: 50%;
+  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2);
+  animation-name:modalopen;
+  animation-duration:.3s;
+}
+
+.modal-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.closeBtn{
+  color: #ccc;
+  font-size: 30px;
+}
+
+.closeBtn:hover,.closeBtn:focus{
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@keyframes modalopen{
+  from{ opacity: 0;}
+  to{ opacity: 1;}
+}
+
+@keyframes modalbackground{
+  from{ opacity: 0;}
+  to{ opacity: 1;}
+}
+
 /* HIDE BROWSER DEFAULT STYLES ------------------------------------*/
 
 /* Chrome, Safari, Edge, Opera */
