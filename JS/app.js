@@ -5,9 +5,9 @@ var getName = function(){
 }
 
 // RegExp  ------------------------------------------------------------------------------------------------------------
-var lettersAndSpaceOnly = /^[ña-zÑA-Z\s]/;
-var numbersOnly = /^[0-9]/;
-var lettersNumbersSpacesOnly = /^[ña-zÑA-Z\s0-9]/;
+var lettersAndSpaceOnly = /^[ña-zÑA-Z\s]+$/;
+var numbersOnly = /^[0-9]+$/;
+var lettersNumbersSpacesOnly = /^[ña-zÑA-Z\s0-9]+$/;
 var lettersNumbersOnly = /^[A-Za-z0-9]+$/;
 var mustContainNumbers = /^(?=.*[0-9])/;
 var mustContainLettersAndNumbers = /^(?=.*[0-9])(?=.*[a-zA-Z])/;
@@ -43,14 +43,6 @@ function checkName(nameValue){
   );
 }
 
-// function checkName(nameValue){
-//   var spaceBetween = nameValue.indexOf(' ');
-//   if (nameValue === '' || nameValue === null || nameValue.length <= 6 || spaceBetween < 0 || nameValue.startsWith(' ') || nameValue.endsWith(' ')) {
-//     return false
-//   }
-//   return true
-// }
-
 // Email validation
 function checkEmail(emailValue){
   return(
@@ -61,47 +53,15 @@ function checkEmail(emailValue){
   );
 }
 
-// function checkEmail(emailValue){
-//   var atSymbol = emailValue.indexOf("@");
-//   if(atSymbol < 1){
-//     return false;
-//   }
-//   var domain = emailValue.slice(atSymbol);
-//   var dot = domain.indexOf(".");
-//   if(dot < 0 || dot <= 2){
-//     return false;
-//   }
-//   if(emailValue.endsWith('.') || emailValue.startsWith('.')){
-//     return false;
-//   }
-//   if(containSpaces.test(emailValue)){
-//     return false;
-//   }
-//   return true;
-// }
-
 // Password validation
 function checkPassword(passwordValue){
   return(
     passwordValue !== '' &&
-    passwordValue.length >= 7 &&
-    lettersNumbersOnly.test(passwordValue) &&
+    passwordValue.length > 7 &&
+    mustContainLettersAndNumbers.test(passwordValue) &&
     (!containSpaces.test(passwordValue))
   );
 }
-
-// function checkPassword(passwordValue){
-//   if(!mustContainLettersAndNumbers.test(passwordValue)){
-//     return false;
-//   }
-//   if(containSpaces.test(passwordValue)){
-//     return false;
-//   }
-//   if (passwordValue === '' || passwordValue === null || passwordValue.length < 7) {
-//     return false;
-//   }
-//   return true;
-// }
 
 // Confirm password validation
 function checkConfirmPassword(confirmPasswordValue){
@@ -109,15 +69,6 @@ function checkConfirmPassword(confirmPasswordValue){
     confirmPasswordValue === password.value
   );
 }
-
-// function checkConfirmPassword(confirmPasswordValue){
-//   if (confirmPasswordValue === password.value) {
-//     return true;
-//   }
-//   else {
-//     return false;
-//   }
-// }
 
 // Age validation
 function checkAge(ageValue){
@@ -129,16 +80,6 @@ function checkAge(ageValue){
   )
 }
 
-// function checkAge(ageValue){
-//   if (ageValue === '' || ageValue === null || ageValue < 18 || ageValue % 1 != 0) {
-//     return false;
-//   }
-//   if (!numbersOnly.test(ageValue)) {
-//     return false;
-//   }
-//   return true;
-// }
-
 // Phone validation
 function checkPhone(phoneValue){
   return(
@@ -147,16 +88,6 @@ function checkPhone(phoneValue){
     numbersOnly.test(phoneValue)
   );
 }
-
-// function checkPhone(phoneValue){
-//   if (phoneValue === '' || phoneValue === null || phoneValue.length < 7) {
-//     return false;
-//   }
-//   if (!numbersOnly.test(phoneValue)) {
-//     return false;
-//   }
-//   return true;
-// }
 
 // Adress validation
 function checkAdress(adressValue){
@@ -167,20 +98,9 @@ function checkAdress(adressValue){
     (!adressValue.startsWith(' ')) &&
     (!adressValue.endsWith(' ')) &&
     spaceBetween > 0 &&
-    mustContainLettersNumbersSpaces.test(adressValue)
+    lettersNumbersSpacesOnly.test(adressValue)
   );
 }
-
-// function checkAdress(adressValue){
-//   var spaceBetween = adressValue.indexOf(' ');
-//   if (adressValue === '' || adressValue === null || adressValue.length < 5 || spaceBetween < 0 || adressValue.startsWith(' ') || adressValue.endsWith(' ')) {
-//     return false
-//   }
-//   if(!mustContainLettersNumbersSpaces.test(adressValue)){
-//     return false;
-//   }
-//   return true
-// }
 
 // City validation
 function checkCity(cityValue){
@@ -188,16 +108,10 @@ function checkCity(cityValue){
     cityValue !== '' &&
     cityValue.length >= 3 &&
     (!cityValue.startsWith(' ')) &&
-    (!cityValue.endsWith(' '))
+    (!cityValue.endsWith(' ')) &&
+    lettersAndSpaceOnly.test(cityValue)
   );
 }
-
-// function checkCity(cityValue){
-//   if (cityValue === '' || cityValue === null || cityValue.length < 3 || cityValue.startsWith(' ') || cityValue.endsWith(' ')) {
-//     return false
-//   }
-//   return true
-// }
 
 // Postal Code validation
 function checkPostalCode(postalCodeValue){
@@ -211,19 +125,6 @@ function checkPostalCode(postalCodeValue){
   );
 }
 
-// function checkPostalCode(postalCodeValue){
-//   if (postalCodeValue === '' || postalCodeValue === null || postalCodeValue.length < 3 || postalCodeValue.startsWith(' ') || postalCodeValue.endsWith(' ')) {
-//     return false
-//   }
-//   if(!lettersNumbersSpacesOnly.test(postalCodeValue)){
-//     return false;
-//   }
-//   if(!mustContainNumbers.test(postalCodeValue)){
-//     return false;
-//   }
-//   return true
-// }
-
 // ID validation
 function checkId(idValue){
   return(
@@ -233,13 +134,6 @@ function checkId(idValue){
   );
 }
 
-// function checkId(idValue){
-//   if (idValue === '' || idValue === null || idValue.length < 7 || idValue.length > 8) {
-//     return false
-//   }
-//   return true
-// }
-  
 // --------------------------------------------------------------------------------------------------------------------
 
 // WINDOWS ONLOAD (fixes getElement issues with empty inputs) ---------------------------------------------------------
