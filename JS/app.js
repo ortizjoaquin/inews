@@ -8,6 +8,7 @@ var getName = function(){
 var lettersAndSpaceOnly = /^[ña-zÑA-Z\s]/;
 var numbersOnly = /^[0-9]/;
 var lettersNumbersSpacesOnly = /^[ña-zÑA-Z\s0-9]/;
+var lettersNumbersOnly = /^[A-Za-z0-9]+$/;
 var mustContainNumbers = /^(?=.*[0-9])/;
 var mustContainLettersAndNumbers = /^(?=.*[0-9])(?=.*[a-zA-Z])/;
 var mustContainLettersNumbersSpaces = /^(?=.*[0-9])(?=.*[a-zA-Z\s])/;
@@ -26,124 +27,218 @@ function hideError(errorMessage){
 
 // --------------------------------------------------------------------------------------------------------------------
 
-// Validating functions declared (first declared, later on called to work) ----------------------------------------
+// Local validating functions declared (first declared, later on called to work) --------------------------------------
+
+// --------------------------------------------------------------------------------------------------------------------
 
 // Name validation
 function checkName(nameValue){
   var spaceBetween = nameValue.indexOf(' ');
-  if (nameValue === '' || nameValue === null || nameValue.length <= 6 || spaceBetween < 0 || nameValue.startsWith(' ') || nameValue.endsWith(' ')) {
-    return false
-  }
-  return true
+  return(
+    nameValue !=='' &&
+    nameValue.length > 6 &&
+    (!nameValue.startsWith(' ')) &&
+    (!nameValue.endsWith(' ')) &&
+    spaceBetween > 0
+  );
 }
+
+// function checkName(nameValue){
+//   var spaceBetween = nameValue.indexOf(' ');
+//   if (nameValue === '' || nameValue === null || nameValue.length <= 6 || spaceBetween < 0 || nameValue.startsWith(' ') || nameValue.endsWith(' ')) {
+//     return false
+//   }
+//   return true
+// }
 
 // Email validation
 function checkEmail(emailValue){
-  var atSymbol = emailValue.indexOf("@");
-  if(atSymbol < 1){
-    return false;
-  }
-  var domain = emailValue.slice(atSymbol);
-  var dot = domain.indexOf(".");
-  if(dot < 0 || dot <= 2){
-    return false;
-  }
-  if(emailValue.endsWith('.') || emailValue.startsWith('.')){
-    return false;
-  }
-  if(containSpaces.test(emailValue)){
-    return false;
-  }
-  return true;
+  return(
+    emailValue !== '' &&
+    (!emailValue.endsWith('.')) &&
+    (!emailValue.startsWith('.')) &&
+    (!containSpaces.test(emailValue))
+  );
 }
+
+// function checkEmail(emailValue){
+//   var atSymbol = emailValue.indexOf("@");
+//   if(atSymbol < 1){
+//     return false;
+//   }
+//   var domain = emailValue.slice(atSymbol);
+//   var dot = domain.indexOf(".");
+//   if(dot < 0 || dot <= 2){
+//     return false;
+//   }
+//   if(emailValue.endsWith('.') || emailValue.startsWith('.')){
+//     return false;
+//   }
+//   if(containSpaces.test(emailValue)){
+//     return false;
+//   }
+//   return true;
+// }
 
 // Password validation
 function checkPassword(passwordValue){
-  if(!mustContainLettersAndNumbers.test(passwordValue)){
-    return false;
-  }
-  if(containSpaces.test(passwordValue)){
-    return false;
-  }
-  if (passwordValue === '' || passwordValue === null || passwordValue.length < 7) {
-    return false;
-  }
-  return true;
+  return(
+    passwordValue !== '' &&
+    passwordValue.length >= 7 &&
+    lettersNumbersOnly.test(passwordValue) &&
+    (!containSpaces.test(passwordValue))
+  );
 }
+
+// function checkPassword(passwordValue){
+//   if(!mustContainLettersAndNumbers.test(passwordValue)){
+//     return false;
+//   }
+//   if(containSpaces.test(passwordValue)){
+//     return false;
+//   }
+//   if (passwordValue === '' || passwordValue === null || passwordValue.length < 7) {
+//     return false;
+//   }
+//   return true;
+// }
 
 // Confirm password validation
 function checkConfirmPassword(confirmPasswordValue){
-  if (confirmPasswordValue === password.value) {
-    return true;
-  }
-  else {
-    return false;
-  }
+  return(
+    confirmPasswordValue === password.value
+  );
 }
+
+// function checkConfirmPassword(confirmPasswordValue){
+//   if (confirmPasswordValue === password.value) {
+//     return true;
+//   }
+//   else {
+//     return false;
+//   }
+// }
 
 // Age validation
 function checkAge(ageValue){
-  if (ageValue === '' || ageValue === null || ageValue < 18 || ageValue % 1 != 0) {
-    return false;
-  }
-  if (!numbersOnly.test(ageValue)) {
-    return false;
-  }
-  return true;
+  return(
+    ageValue !== '' &&
+    ageValue >= 18 &&
+    ageValue % 1 === 0 &&
+    numbersOnly.test(ageValue)
+  )
 }
+
+// function checkAge(ageValue){
+//   if (ageValue === '' || ageValue === null || ageValue < 18 || ageValue % 1 != 0) {
+//     return false;
+//   }
+//   if (!numbersOnly.test(ageValue)) {
+//     return false;
+//   }
+//   return true;
+// }
 
 // Phone validation
 function checkPhone(phoneValue){
-  if (phoneValue === '' || phoneValue === null || phoneValue.length < 7) {
-    return false;
-  }
-  if (!numbersOnly.test(phoneValue)) {
-    return false;
-  }
-  return true;
+  return(
+    phoneValue !== '' &&
+    phoneValue.length >= 7 &&
+    numbersOnly.test(phoneValue)
+  );
 }
+
+// function checkPhone(phoneValue){
+//   if (phoneValue === '' || phoneValue === null || phoneValue.length < 7) {
+//     return false;
+//   }
+//   if (!numbersOnly.test(phoneValue)) {
+//     return false;
+//   }
+//   return true;
+// }
 
 // Adress validation
 function checkAdress(adressValue){
   var spaceBetween = adressValue.indexOf(' ');
-  if (adressValue === '' || adressValue === null || adressValue.length < 5 || spaceBetween < 0 || adressValue.startsWith(' ') || adressValue.endsWith(' ')) {
-    return false
-  }
-  if(!mustContainLettersNumbersSpaces.test(adressValue)){
-    return false;
-  }
-  return true
+  return(
+    adressValue !== '' &&
+    adressValue.length >= 5 &&
+    (!adressValue.startsWith(' ')) &&
+    (!adressValue.endsWith(' ')) &&
+    spaceBetween > 0 &&
+    mustContainLettersNumbersSpaces.test(adressValue)
+  );
 }
+
+// function checkAdress(adressValue){
+//   var spaceBetween = adressValue.indexOf(' ');
+//   if (adressValue === '' || adressValue === null || adressValue.length < 5 || spaceBetween < 0 || adressValue.startsWith(' ') || adressValue.endsWith(' ')) {
+//     return false
+//   }
+//   if(!mustContainLettersNumbersSpaces.test(adressValue)){
+//     return false;
+//   }
+//   return true
+// }
 
 // City validation
 function checkCity(cityValue){
-  if (cityValue === '' || cityValue === null || cityValue.length < 3 || cityValue.startsWith(' ') || cityValue.endsWith(' ')) {
-    return false
-  }
-  return true
+  return(
+    cityValue !== '' &&
+    cityValue.length >= 3 &&
+    (!cityValue.startsWith(' ')) &&
+    (!cityValue.endsWith(' '))
+  );
 }
+
+// function checkCity(cityValue){
+//   if (cityValue === '' || cityValue === null || cityValue.length < 3 || cityValue.startsWith(' ') || cityValue.endsWith(' ')) {
+//     return false
+//   }
+//   return true
+// }
 
 // Postal Code validation
 function checkPostalCode(postalCodeValue){
-  if (postalCodeValue === '' || postalCodeValue === null || postalCodeValue.length < 3 || postalCodeValue.startsWith(' ') || postalCodeValue.endsWith(' ')) {
-    return false
-  }
-  if(!lettersNumbersSpacesOnly.test(postalCodeValue)){
-    return false;
-  }
-  if(!mustContainNumbers.test(postalCodeValue)){
-    return false;
-  }
-  return true
+  return(
+    postalCodeValue !== '' &&
+    postalCodeValue.length >= 3 &&
+    (!postalCodeValue.startsWith(' ')) &&
+    (!postalCodeValue.endsWith(' ')) &&
+    lettersNumbersSpacesOnly.test(postalCodeValue) &&
+    mustContainNumbers.test(postalCodeValue)
+  );
 }
+
+// function checkPostalCode(postalCodeValue){
+//   if (postalCodeValue === '' || postalCodeValue === null || postalCodeValue.length < 3 || postalCodeValue.startsWith(' ') || postalCodeValue.endsWith(' ')) {
+//     return false
+//   }
+//   if(!lettersNumbersSpacesOnly.test(postalCodeValue)){
+//     return false;
+//   }
+//   if(!mustContainNumbers.test(postalCodeValue)){
+//     return false;
+//   }
+//   return true
+// }
 
 // ID validation
 function checkId(idValue){
-  if (idValue === '' || idValue === null || idValue.length < 7 || idValue.length > 8) {
-    return false
-  }
-  return true
+  return(
+    idValue !== '' &&
+    idValue.length >= 7 &&
+    idValue.length <= 8
+  );
 }
+
+// function checkId(idValue){
+//   if (idValue === '' || idValue === null || idValue.length < 7 || idValue.length > 8) {
+//     return false
+//   }
+//   return true
+// }
   
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -421,11 +516,11 @@ window.onload=function(){
   // LOCAL STORAGE AND AUTO FILLING -----------------------------------------------------------------------------------
 
   // Local Storage Check 
-  for (var i = 0; i < inputList.length; i++) {
-    if(localStorage.getItem(inputList[i].id) !== null) {
-       // Input Filling
-       inputList[i].value = localStorage.getItem(inputList[i].id);
-       inputList[i].dispatchEvent(new Event('blur'));
-    }
-  }
+  // for (var i = 0; i < inputList.length; i++) {
+  //   if(localStorage.getItem(inputList[i].id) !== null) {
+  //      // Input Filling
+  //      inputList[i].value = localStorage.getItem(inputList[i].id);
+  //      inputList[i].dispatchEvent(new Event('blur'));
+  //   }
+  // }
 }
