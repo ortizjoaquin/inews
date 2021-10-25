@@ -20,6 +20,7 @@ function validateKeyName(e){
 
 // Hide error messages (this makes the error messages to be non-displayed as default) ---------------------------------
 function hideError(errorMessage){
+  errorMessage.innerHTML=''
   errorMessage.style.display='none';
 }
 
@@ -292,7 +293,8 @@ window.onload=function(){
   // Form validation --------------------------------------------------------------------------------------------------
   form.addEventListener('submit', function(e){
     e.preventDefault()
-    // openModal()
+    //debugger;
+    console.log(inputList)
     var messages = []
     e.target.name.nextElementSibling.textContent ? messages.push(e.target.name.nextElementSibling.textContent) : null
     e.target.email.nextElementSibling.textContent ? messages.push(e.target.email.nextElementSibling.textContent) : null
@@ -304,7 +306,7 @@ window.onload=function(){
     e.target.city.nextElementSibling.textContent ? messages.push(e.target.city.nextElementSibling.textContent) : null
     e.target.postalCode.nextElementSibling.textContent ? messages.push(e.target.postalCode.nextElementSibling.textContent) : null
     e.target.id.nextElementSibling.textContent ? messages.push(e.target.id.nextElementSibling.textContent) : null
-
+    
     if ((checkName(name.value)===true)&&
     (checkEmail(email.value)===true)&&
     (checkPassword(password.value)===true)&&
@@ -323,26 +325,22 @@ window.onload=function(){
       var fullUrl = url + fullServerParameters;
       console.log(fullUrl)
       fetch(fullUrl)
-        .then(function(fullUrl) { //si vuelve correcto vuelve por los then
-          return fullUrl.json();
-        })
-        .then(function(data) { //si vuelve correcto vuelve por los then
-          console.log(data.name,data.email,data.age,data.phone,data.adress,data.city,data.postalCode,data.id)
-          modalSuccess(data)
-        })
-        .catch(function(err) { //si hay error vuelve por el catch
-          console.log(err);
-          modalErrorServer(err)
-        })
+      .then(function(fullUrl) {
+        return fullUrl.json();
+      })
+      .then(function(data) {
+        modalSuccess(data)
+      })
+      .catch(function(err) {
+        modalErrorServer(err)
+      })
     }
     else {
       if(messages.length > 0){
-        // alert(messages.join('\n'))
-        modalErrorLocal(messages)
+        modalErrorLocal(messages);
       }
       else{
-        // modalErrorBlank()
-        alert ('Must complete the fields!')
+        modalErrorBlank();
       }
     }
   });
@@ -379,6 +377,10 @@ window.onload=function(){
     for (var property in data){
       modalList.innerHTML += `<li>${data[property]}</li>`
     }
+    // LocalStorage
+    for (const property in data) {
+      localStorage.setItem(property, data[property])
+    }
   }
   // Modal Error Server
   function modalErrorServer(err){
@@ -398,6 +400,12 @@ window.onload=function(){
       modalList.innerHTML += `<li class='modal-error'>${locError[i]}</li>`;
     }
   }
+  // Modal Blank Error
+  function modalErrorBlank(blankError){
+    modal.style.display = 'block';
+    modalTitle.innerHTML = 'Must complete the fields!';
+    modalList.innerHTML = '';
+  }
 
   // Function to close modal by button
   function closeModal(){
@@ -407,6 +415,17 @@ window.onload=function(){
   function outsideClick(e){
     if(e.target === modal){
       modal.style.display = 'none';
+    }
+  }
+
+  // LOCAL STORAGE AND AUTO FILLING -----------------------------------------------------------------------------------
+
+  // Local Storage Check 
+  for (var i = 0; i < inputList.length; i++) {
+    if(localStorage.getItem(inputList[i].id) !== null) {
+       // Input Filling
+       inputList[i].value = localStorage.getItem(inputList[i].id);
+       inputList[i].dispatchEvent(new Event('blur'));
     }
   }
 }
