@@ -41,5 +41,7 @@ Download the code on a zip file, and run index.html, or directly run the GitHub 
 # Link to GitHub Pages:
 https://ortizjoaquin.github.io/inews/
 
+(To see the "subscribe" page, when opening the index.html with the link above, click on the "subscribe" option)
+
 # Author:
 Joaquin Ortiz

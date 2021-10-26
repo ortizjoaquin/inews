@@ -137,7 +137,7 @@ function checkId(idValue){
 // --------------------------------------------------------------------------------------------------------------------
 
 window.onload=function(){
-  
+
   // INPUTS VARIABLES -------------------------------------------------------------------------------------------------
   var name = document.getElementById('name')
   var email = document.getElementById('email')
@@ -312,11 +312,12 @@ window.onload=function(){
     (checkCity(city.value)===true)&&
     (checkPostalCode(postalCode.value)===true)&&
     (checkId(id.value)===true))
-    { 
-      // For the fetching part, the following "for" creates a string with all the data that will be given to the server
-      // It starts with the "?", followed by the info string, wich is build upon the serverParameters and url variables
-      // '=' and '&' strings, and replacing the spaces inside the inputs with a '%20'. --------------------------------
 
+    // For the fetching part, the following "for" creates a string with all the data that will be given to the server
+    // It starts with the "?", followed by the info string, wich is build upon the serverParameters and url variables
+    // '=' and '&' strings, and replacing the spaces inside the inputs with a '%20'. --------------------------------
+
+      { 
       for (var i = 0; i < inputList.length; i++) {
         serverParameters += inputList[i].id + '=' + inputList[i].value + '&';
       }
@@ -425,7 +426,6 @@ window.onload=function(){
   // Function to close modal by button --------------------------------------------------------------------------------
   function closeModal(){
     modal.style.display = 'none';
-    modalBody.innerHTML = '';
   }
   
   // Function to close modal by clicking outside ----------------------------------------------------------------------
