@@ -72,7 +72,7 @@ body {
   height: 100%;
 }
 
-/*BUTTON ----------------------------------------------------------*/
+/* BUTTON ---------------------------------------------------------*/
 #button{
   background-color: #fff;
   margin: 20px 0 0 0;
@@ -104,13 +104,15 @@ body {
 }
 
 .modal-content{
+  display: block;
   background-color: #fff;
   margin: 10% auto;
   padding: 10px 15px;
-  width: 50%;
+  width: 30%;
   box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2);
   animation-name:modalopen;
   animation-duration:.3s;
+  border-radius: 10px;
 }
 
 .modal-header{
@@ -130,6 +132,27 @@ body {
   cursor: pointer;
 }
 
+.modal-footer{
+  text-align: center;
+}
+
+.okCloseBtn{
+  display: inline-block;
+  width: auto;
+  background-color: #fff;
+  margin: 20px 0 0 0;
+  padding: .7em .7em;
+  color:#212324;
+  border: 2px solid #1b8aca;
+  border-radius: 50px;
+}
+
+.okCloseBtn:hover,.okCloseBtn:focus{
+  background-color: #1b8aca;
+  color: #fff;
+  cursor: pointer;
+}
+
 @keyframes modalopen{
   from{ opacity: 0;}
   to{ opacity: 1;}
@@ -140,9 +163,16 @@ body {
   to{ opacity: 1;}
 }
 
-.modal-error {
+#modal-error {
+  font-size: .8rem;
+  margin: 5px 0 0 0;
   color:red;
   list-style: none;
+}
+
+#modal-success {
+  list-style: none;
+  margin: 5px 0 0 0;
 }
 
 /* HIDE BROWSER DEFAULT STYLES ------------------------------------*/
@@ -158,3 +188,5 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+/* Luckily for me, I didn't need to use Media Query's on this page */

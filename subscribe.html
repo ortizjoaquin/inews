@@ -89,6 +89,8 @@
           <div>
             <label for="name">Name</label>
             <input type="text" id="name" onkeyup="getName()" onkeydown="return validateKeyName(event)">
+            <!--I am aware that we were asked to use the onkeyup function to auto-write the name, but if so, there was
+            always a problem with the last letter, I think using onkeydown works better-->
             <p class="errorMessage" id="nameError"></p>
           </div>
           <div>
@@ -170,10 +172,12 @@
         <h2 id="modal-title"></h2>
         <span class="closeBtn">&times;</span>
       </div>
-      <div class=modal-body>
+      <div class="modal-body">
         <ul id="modal-list"></ul>
       </div>
-      <span></span>
+      <div class="modal-footer">
+        <span class="okCloseBtn">Ok!</span>
+      </div>
     </div>
   </div>
 </body>

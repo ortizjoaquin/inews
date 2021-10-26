@@ -1,7 +1,12 @@
-// AUTO WRITING NAME ----------------------------------------------------------------------------------------------
+// Auto writing name --------------------------------------------------------------------------------------------------
 var getName = function(){
   var userName = document.getElementById('name').value;
   document.getElementById('userName').innerHTML=userName;
+}
+
+// OnKey for the name input (only allows you to enter letters and spaces at the name input) ---------------------------
+function validateKeyName(e){
+  return lettersAndSpaceOnly.test(e.key)
 }
 
 // RegExp  ------------------------------------------------------------------------------------------------------------
@@ -14,11 +19,6 @@ var mustContainLettersAndNumbers = /^(?=.*[0-9])(?=.*[a-zA-Z])/;
 var mustContainLettersNumbersSpaces = /^(?=.*[0-9])(?=.*[a-zA-Z\s])/;
 var containSpaces = /\s/;
 
-// OnKey for the name input (only allows you to enter letters and spaces at the name input) ---------------------------
-function validateKeyName(e){
-  return lettersAndSpaceOnly.test(e.key)
-}
-
 // Hide error messages (this makes the error messages to be non-displayed as default) ---------------------------------
 function hideError(errorMessage){
   errorMessage.innerHTML=''
@@ -26,9 +26,7 @@ function hideError(errorMessage){
 }
 
 // --------------------------------------------------------------------------------------------------------------------
-
-// Local validating functions declared (first declared, later on called to work) --------------------------------------
-
+// Local validating functions declared --------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------------------------------
 
 // Name validation
@@ -135,8 +133,9 @@ function checkId(idValue){
 }
 
 // --------------------------------------------------------------------------------------------------------------------
-
 // WINDOWS ONLOAD (fixes getElement issues with empty inputs) ---------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
+
 window.onload=function(){
   
   // INPUTS VARIABLES -------------------------------------------------------------------------------------------------
@@ -179,8 +178,8 @@ window.onload=function(){
   var idError = document.getElementById('idError')
   
   //-------------------------------------------------------------------------------------------------------------------
-
   // VALIDATING FUNCTIONS ---------------------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------------------------------------------
 
   // Name validation (blur and focus) ---------------------------------------------------------------------------------
   name.addEventListener('blur', function(){
@@ -221,7 +220,7 @@ window.onload=function(){
   });
   confirmPassword.addEventListener('focus', function(){hideError(confirmPasswordError)})
 
-  // Age validation (blur and focus)
+  // Age validation (blur and focus) ----------------------------------------------------------------------------------
   age.addEventListener('blur', function(){
     if (checkAge(age.value)===false){
       ageError.innerText = 'Please enter a valid age (numbers only), you must be at least 18 years old';
@@ -230,7 +229,7 @@ window.onload=function(){
   });
   age.addEventListener('focus', function(){hideError(ageError)})
 
-  // Phone validation (blur and focus)
+  // Phone validation (blur and focus) --------------------------------------------------------------------------------
   phone.addEventListener('blur', function(){
     if (checkPhone(phone.value)===false){
       phoneError.innerText = 'Please enter a valid phone number (numbers only)';
@@ -239,7 +238,7 @@ window.onload=function(){
   });
   phone.addEventListener('focus', function(){hideError(phoneError)})
 
-  // Adress validation (blur and focus)
+  // Adress validation (blur and focus) -------------------------------------------------------------------------------
   adress.addEventListener('blur', function(){
     if (checkAdress(adress.value)===false){
       adressError.innerText = 'Please enter a valid adress (street name and number separated by a space)';
@@ -248,7 +247,7 @@ window.onload=function(){
   });
   adress.addEventListener('focus', function(){hideError(adressError)})
 
-  // City validation (blur and focus)
+  // City validation (blur and focus) ---------------------------------------------------------------------------------
   city.addEventListener('blur', function(){
     if (checkCity(city.value)===false){
       cityError.innerText = 'Please enter a valid city name';
@@ -257,7 +256,7 @@ window.onload=function(){
   });
   city.addEventListener('focus', function(){hideError(cityError)})
 
-  // Postal Code validation (blur and focus)
+  // Postal Code validation (blur and focus) --------------------------------------------------------------------------
   postalCode.addEventListener('blur', function(){
     if (checkPostalCode(postalCode.value)===false){
       postalCodeError.innerText = 'Please enter a valid Postal Code (numeric or alphanumeric)';
@@ -266,7 +265,7 @@ window.onload=function(){
   });
   postalCode.addEventListener('focus', function(){hideError(postalCodeError)})
 
-  // ID validation (blur and focus)
+  // ID validation (blur and focus) -----------------------------------------------------------------------------------
   id.addEventListener('blur', function(){
     if (checkId(id.value)===false){
       idError.innerText = 'Please enter a valid ID number (7 or 8 digits)';
@@ -276,14 +275,18 @@ window.onload=function(){
   id.addEventListener('focus', function(){hideError(idError)})
 
   // ------------------------------------------------------------------------------------------------------------------
-
-  // GENERAL VALIDATION (whole form)
+  // GENERAL VALIDATION (whole form) ----------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------------------------
 
   // Form validation --------------------------------------------------------------------------------------------------
   form.addEventListener('submit', function(e){
     e.preventDefault()
-    //debugger;
-    console.log(inputList)
+
+    // Here it creates an array of messages that are pushed whenever an error with the imputs is verified. ------------
+    // The errors shown before at the VALIDATING FUNCTIONS part, are displayed on the next element sibling (because of 
+    // how the code is structured, the <p> elements on the HTML file that correspond to the error messages and are ----
+    // right next to the imput elements) ------------------------------------------------------------------------------
+
     var messages = []
     e.target.name.nextElementSibling.textContent ? messages.push(e.target.name.nextElementSibling.textContent) : null
     e.target.email.nextElementSibling.textContent ? messages.push(e.target.email.nextElementSibling.textContent) : null
@@ -295,7 +298,10 @@ window.onload=function(){
     e.target.city.nextElementSibling.textContent ? messages.push(e.target.city.nextElementSibling.textContent) : null
     e.target.postalCode.nextElementSibling.textContent ? messages.push(e.target.postalCode.nextElementSibling.textContent) : null
     e.target.id.nextElementSibling.textContent ? messages.push(e.target.id.nextElementSibling.textContent) : null
-    
+
+    // If no errors are detected on any input at the VALIDATING FUNCTIONS part, then the form will be validated -------
+    // entirely, showing de successful validation modal and fetching the data -----------------------------------------
+
     if ((checkName(name.value)===true)&&
     (checkEmail(email.value)===true)&&
     (checkPassword(password.value)===true)&&
@@ -306,7 +312,11 @@ window.onload=function(){
     (checkCity(city.value)===true)&&
     (checkPostalCode(postalCode.value)===true)&&
     (checkId(id.value)===true))
-    {
+    { 
+      // For the fetching part, the following "for" creates a string with all the data that will be given to the server
+      // It starts with the "?", followed by the info string, wich is build upon the serverParameters and url variables
+      // '=' and '&' strings, and replacing the spaces inside the inputs with a '%20'. --------------------------------
+
       for (var i = 0; i < inputList.length; i++) {
         serverParameters += inputList[i].id + '=' + inputList[i].value + '&';
       }
@@ -319,9 +329,12 @@ window.onload=function(){
       })
       .then(function(data) {
         modalSuccess(data)
+        serverParameters = '?'
+        console.log('data',data)
       })
       .catch(function(err) {
         modalErrorServer(err)
+        serverParameters = '?'
       })
     }
     else {
@@ -334,44 +347,54 @@ window.onload=function(){
     }
   });
 
-  // SERVER ----------------------------------------------------
+  // ------------------------------------------------------------------------------------------------------------------
+  // SERVER -----------------------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------------------------
 
-  // Variables
+  // Variables for server com -----------------------------------------------------------------------------------------
   var url = 'https://curso-dev-2021.herokuapp.com/newsletter';
   var serverParameters = '?';
 
-  // MODAL -----------------------------------------------------
+  // ------------------------------------------------------------------------------------------------------------------
+  // MODAL(S) ---------------------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------------------------
 
   // Get the modal element
   var modal = document.getElementById('simpleModal');
-  // Get the button for opening the modal 
-  var modalBtn = document.getElementById('submit');
-  // Get close button
+  // Get both close buttons
   var closeBtn = document.getElementsByClassName('closeBtn')[0];
+  var okCloseBtn = document.getElementsByClassName('okCloseBtn')[0];
   // Modal title
   var modalTitle = document.getElementById('modal-title');
   // Modal body
+  var modalBody = document.getElementsByClassName('modal-body')[0];
+  // Modal list
   var modalList = document.getElementById('modal-list')
 
   // Close click listener
   closeBtn.addEventListener('click', closeModal);
+  okCloseBtn.addEventListener('click', closeModal);
   // Close window listener
   window.addEventListener('click', outsideClick)
 
-  // ModalSuccess
+  // Modal Success Display --------------------------------------------------------------------------------------------
   function modalSuccess(data){
     modalList.innerHTML = '';
     modal.style.display = 'block';
-    modalTitle.innerHTML = 'Validation Succes!';
+    modalTitle.innerHTML = 'Validation Successful!';
     for (var property in data){
-      modalList.innerHTML += `<li>${data[property]}</li>`
+      if(property != 'password' && property != 'confirmPassword'){
+        modalList.innerHTML += `<li id='modal-success'>${data[property]}</li>`
+      }
     }
     // LocalStorage
-    for (const property in data) {
+    // (only if everything is ok, it'll be storaged)
+    for (var property in data) {
       localStorage.setItem(property, data[property])
     }
   }
-  // Modal Error Server
+
+  // Modal Error Display (Server) -------------------------------------------------------------------------------------
   function modalErrorServer(err){
     modalList.innerHTML = '';
     modal.style.display = 'block';
@@ -380,41 +403,47 @@ window.onload=function(){
       modalList.innerHTML += `<li>${err[property]}</li>`
     }
   }
-  // Modal Local Error Validation
+
+  // Modal Local Error Validation Display -----------------------------------------------------------------------------
+  // (with local I mean that these errors prevent the info to be fetched, first you have to correct them)
   function modalErrorLocal(locError){
     modalList.innerHTML = '';
     modal.style.display = 'block';
     modalTitle.innerHTML = 'Please correct the following mistakes:';
     for (let i = 0; i < locError.length; i++) {
-      modalList.innerHTML += `<li class='modal-error'>${locError[i]}</li>`;
+      modalList.innerHTML += `<li id='modal-error'>${locError[i]}</li>`;
     }
   }
-  // Modal Blank Error
+
+  // Modal Blank Error Display ----------------------------------------------------------------------------------------
   function modalErrorBlank(blankError){
-    modal.style.display = 'block';
-    modalTitle.innerHTML = 'Must complete the fields!';
     modalList.innerHTML = '';
+    modal.style.display = 'block';
+    modalTitle.innerHTML = 'Please, you must complete the fields!';
   }
 
-  // Function to close modal by button
+  // Function to close modal by button --------------------------------------------------------------------------------
   function closeModal(){
     modal.style.display = 'none';
+    modalBody.innerHTML = '';
   }
-  // Function to close modal by clicking outside
+  
+  // Function to close modal by clicking outside ----------------------------------------------------------------------
   function outsideClick(e){
     if(e.target === modal){
       modal.style.display = 'none';
     }
   }
 
+  // ------------------------------------------------------------------------------------------------------------------
   // LOCAL STORAGE AND AUTO FILLING -----------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------------------------
 
   // Local Storage Check 
-  // for (var i = 0; i < inputList.length; i++) {
-  //   if(localStorage.getItem(inputList[i].id) !== null) {
-  //      // Input Filling
-  //      inputList[i].value = localStorage.getItem(inputList[i].id);
-  //      inputList[i].dispatchEvent(new Event('blur'));
-  //   }
-  // }
+  for (var i = 0; i < inputList.length; i++) {
+    if(localStorage.getItem(inputList[i].id) !== null) {
+      // Input Filling
+      inputList[i].value = localStorage.getItem(inputList[i].id);
+    }
+  }
 }
